@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MiniGcs.App/MiniGcs.App.csproj" />
+  </Folder>
+</Solution>
