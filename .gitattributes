@@ -1,0 +1,7 @@
+# Normalize line endings in the repo (LF), regardless of who commits (Windows, WSL, CI)
+* text=auto
+
+# Windows-only files keep CRLF on checkout
+*.sln   text eol=crlf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
