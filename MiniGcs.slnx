@@ -1,3 +1,11 @@
+<!--
+  The solution: a list of all the projects that belong to this app, so a single
+  `dotnet build` or `dotnet test` at the root handles all of them together.
+  Each project (.csproj) produces exactly one output (an .exe or a .dll library),
+  and a real app is usually split into several: later this will hold MiniGcs.App
+  (the WPF window), MiniGcs.Core (MAVLink logic, no UI) and MiniGcs.Tests.
+  Same idea as a parent pom.xml with <modules> in Maven, or a top-level Makefile in C.
+-->
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/MiniGcs.App/MiniGcs.App.csproj" />

@@ -1,4 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<!--
+  Project file: tells the build what this project is and how to compile it (like a
+  pom.xml or a Makefile). WinExe = a Windows .exe with a window (no console).
+  net10.0-windows = .NET 10 plus the Windows-only APIs that WPF needs.
+  Nullable = the compiler warns me when something might be null.
+  ImplicitUsings = common namespaces (System, System.IO, ...) are imported
+  automatically, so files don't start with a wall of `using` lines.
+  UseWPF = turns on WPF, including compiling the .xaml files into C#.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>

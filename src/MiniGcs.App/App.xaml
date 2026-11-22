@@ -1,9 +1,15 @@
-﻿<Application x:Class="MiniGcs.App.App"
+﻿<!--
+  The application itself, not a window: this is the entry point, the equivalent of
+  main(). WPF generates the real Main() method from this file at build time.
+  StartupUri says which window to open when the app starts. Resources is a place for
+  app-wide styles and colors that every window can use (empty for now).
+  The xmlns lines just tell the XAML parser where the WPF tags (Application, Window,
+  TextBlock...) come from, like imports.
+-->
+<Application x:Class="MiniGcs.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MiniGcs.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>
