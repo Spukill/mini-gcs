@@ -24,8 +24,14 @@ public class MainViewModel : INotifyPropertyChanged
 
     private ITelemetrySource telemetrySource;
 
-    // The private field that actually stores the value (like a private field in Java).
+    // Private fields that actually store the values (like private fields in Java).
+    private double latitude;
+    private double longitude;
     private double altitude;
+    private double groundSpeed;
+    private double batteryPercent;
+    private bool isArmed;
+    private string flightMode = "";
 
     // The data source is passed in from outside instead of being created here
     // ("dependency injection"): this class works with ANY ITelemetrySource.
@@ -41,6 +47,35 @@ public class MainViewModel : INotifyPropertyChanged
     // but reading it runs the `get` block and assigning it runs the `set` block, just
     // like calling getAltitude() / setAltitude(value) in Java. Inside `set`, the keyword
     // `value` is the new value being assigned. WPF bindings only work with properties.
+    // Every setter calls OnPropertyChanged with the property's exact name, or the
+    // screen won't update.
+
+    public double Latitude
+    {
+        get
+        {
+            return latitude;
+        }
+        set
+        {
+            latitude = value;
+            OnPropertyChanged("Latitude");
+        }
+    }
+
+    public double Longitude
+    {
+        get
+        {
+            return longitude;
+        }
+        set
+        {
+            longitude = value;
+            OnPropertyChanged("Longitude");
+        }
+    }
+
     public double Altitude
     {
         get
@@ -50,17 +85,93 @@ public class MainViewModel : INotifyPropertyChanged
         set
         {
             altitude = value;
-
-            // Tell whoever is listening (WPF) that "Altitude" changed.
-            // The name must match the property name exactly, or nothing updates.
             OnPropertyChanged("Altitude");
         }
     }
 
-    // Called by the telemetry source with every new reading.
+    public double GroundSpeed
+    {
+        get
+        {
+            return groundSpeed;
+        }
+        set
+        {
+            groundSpeed = value;
+            OnPropertyChanged("GroundSpeed");
+        }
+    }
+
+    public double BatteryPercent
+    {
+        get
+        {
+            return batteryPercent;
+        }
+        set
+        {
+            batteryPercent = value;
+            OnPropertyChanged("BatteryPercent");
+        }
+    }
+
+    public bool IsArmed
+    {
+        get
+        {
+            return isArmed;
+        }
+        set
+        {
+            isArmed = value;
+            OnPropertyChanged("IsArmed");
+
+            // ArmedText is calculated from IsArmed, so it changed too: notify it as well.
+            OnPropertyChanged("ArmedText");
+        }
+    }
+
+    // A read-only property (only `get`) that turns the bool into text for the screen.
+    // Preparing data in the format the View needs is exactly the ViewModel's job.
+    public string ArmedText
+    {
+        get
+        {
+            if (isArmed)
+            {
+                return "ARMED";
+            }
+            else
+            {
+                return "DISARMED";
+            }
+        }
+    }
+
+    public string FlightMode
+    {
+        get
+        {
+            return flightMode;
+        }
+        set
+        {
+            flightMode = value;
+            OnPropertyChanged("FlightMode");
+        }
+    }
+
+    // Called by the telemetry source with every new reading:
+    // copy each value from the reading into the matching property.
     private void OnTelemetryReceived(object? sender, Telemetry telemetry)
     {
+        Latitude = telemetry.Latitude;
+        Longitude = telemetry.Longitude;
         Altitude = telemetry.Altitude;
+        GroundSpeed = telemetry.GroundSpeed;
+        BatteryPercent = telemetry.BatteryPercent;
+        IsArmed = telemetry.IsArmed;
+        FlightMode = telemetry.FlightMode;
     }
 
     // Raises the PropertyChanged event, if anyone is subscribed to it.
