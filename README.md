@@ -21,7 +21,7 @@ position, altitude, speed, battery and flight state.
 ## Roadmap
 
 - [x] **Phase 0 – Setup:** .NET SDK, WPF project, solution layout, repository
-- [ ] **Phase 1 – UI with fake data:** fake telemetry generator, MVVM screen with data binding
+- [x] **Phase 1 – UI with fake data:** fake telemetry generator, MVVM screen with data binding
 - [ ] **Phase 2 – Simulator:** ArduPilot SITL running, first MAVLink `HEARTBEAT` received over UDP
 - [ ] **Phase 3 – Real telemetry:** background reading (async/threads) without blocking the UI
 - [ ] **Phase 4 – Quality:** structured logging, unit tests, CI with GitHub Actions
@@ -34,8 +34,14 @@ mini-gcs/
 ├── MiniGcs.slnx          # solution (groups all projects)
 ├── global.json           # pins the .NET SDK version
 └── src/
-    └── MiniGcs.App/      # WPF desktop app
+    └── MiniGcs.App/              # WPF desktop app
+        ├── Models/               # plain data (Telemetry)
+        ├── Services/             # data sources (ITelemetrySource, FakeTelemetrySource)
+        ├── ViewModels/           # screen state + INotifyPropertyChanged (MainViewModel)
+        └── MainWindow.xaml       # the view, bound to MainViewModel
 ```
+
+Data flow: `ITelemetrySource` → event `TelemetryReceived` → `MainViewModel` → `PropertyChanged` → WPF bindings update the screen.
 
 ## Build and run
 
