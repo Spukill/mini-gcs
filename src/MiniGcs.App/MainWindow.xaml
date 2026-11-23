@@ -11,14 +11,9 @@
         Title="mini-gcs" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding Altitude, StringFormat=Altitude: {0} m}"
+            <!-- F1 = 1 decimal place, like %.1f in C -->
+            <TextBlock Text="{Binding Altitude, StringFormat=Altitude: {0:F1} m}"
                        FontSize="20" />
-
-            <!-- TEMPORARY: proves the ViewModel value changes even if the screen doesn't -->
-            <Button Content="Mostrar valor real do ViewModel"
-                    Margin="0,20,0,0"
-                    Padding="10,5"
-                    Click="OnShowValueClick" />
         </StackPanel>
     </Grid>
 </Window>

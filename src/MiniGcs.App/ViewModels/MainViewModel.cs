@@ -1,5 +1,6 @@
 using System.ComponentModel;
-using System.Windows.Threading;
+using MiniGcs.App.Models;
+using MiniGcs.App.Services;
 
 namespace MiniGcs.App.ViewModels;
 
@@ -12,29 +13,28 @@ namespace MiniGcs.App.ViewModels;
 // in Java): when a property changes, the ViewModel raises the PropertyChanged event,
 // and WPF (which subscribed to it when the window opened) re-reads that property and
 // updates the screen. Without this, the View only ever sees the first value.
+//
+// It doesn't produce data itself: it receives an ITelemetrySource in the constructor
+// and listens to it. It doesn't know (or care) whether the data is fake or real.
 public class MainViewModel : INotifyPropertyChanged
 {
     // The event that WPF subscribes to. The `?` means it can be null: it stays null
     // until someone subscribes.
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    private ITelemetrySource telemetrySource;
+
     // The private field that actually stores the value (like a private field in Java).
-    private double altitude = 120.5;
+    private double altitude;
 
-    // TEMPORARY: a timer that changes the altitude every second, to test the binding.
-    // It will be replaced by a fake telemetry generator in step 4. DispatcherTimer
-    // runs its Tick on the UI thread, so we don't have to deal with threads yet.
-    private DispatcherTimer timer;
-
-    public MainViewModel()
+    // The data source is passed in from outside instead of being created here
+    // ("dependency injection"): this class works with ANY ITelemetrySource.
+    public MainViewModel(ITelemetrySource telemetrySource)
     {
-        timer = new DispatcherTimer();
-        timer.Interval = TimeSpan.FromSeconds(1);
+        this.telemetrySource = telemetrySource;
 
-        // "When the timer ticks, call OnTimerTick" (like addActionListener in Java).
-        timer.Tick += OnTimerTick;
-
-        timer.Start();
+        // "When a new reading arrives, call OnTelemetryReceived".
+        this.telemetrySource.TelemetryReceived += OnTelemetryReceived;
     }
 
     // A C# "property": from outside it looks like a field (viewModel.Altitude = 10),
@@ -57,6 +57,12 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    // Called by the telemetry source with every new reading.
+    private void OnTelemetryReceived(object? sender, Telemetry telemetry)
+    {
+        Altitude = telemetry.Altitude;
+    }
+
     // Raises the PropertyChanged event, if anyone is subscribed to it.
     private void OnPropertyChanged(string propertyName)
     {
@@ -64,12 +70,5 @@ public class MainViewModel : INotifyPropertyChanged
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
-
-    // Called by the timer every second. `sender` is the object that raised the event
-    // (the timer) and `e` carries extra event data; we don't need either here.
-    private void OnTimerTick(object? sender, EventArgs e)
-    {
-        Altitude = Altitude + 1;
     }
 }
