@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows.Threading;
 
 namespace MiniGcs.App.ViewModels;
@@ -6,8 +7,17 @@ namespace MiniGcs.App.ViewModels;
 // shows. It knows nothing about the window (no TextBlocks, no colors); the XAML reads
 // its properties through data binding, e.g. {Binding Altitude}. Because it has no UI
 // code, it can be tested without opening a window.
-public class MainViewModel
+//
+// It implements INotifyPropertyChanged (Observer pattern, like PropertyChangeListener
+// in Java): when a property changes, the ViewModel raises the PropertyChanged event,
+// and WPF (which subscribed to it when the window opened) re-reads that property and
+// updates the screen. Without this, the View only ever sees the first value.
+public class MainViewModel : INotifyPropertyChanged
 {
+    // The event that WPF subscribes to. The `?` means it can be null: it stays null
+    // until someone subscribes.
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     // The private field that actually stores the value (like a private field in Java).
     private double altitude = 120.5;
 
@@ -40,6 +50,19 @@ public class MainViewModel
         set
         {
             altitude = value;
+
+            // Tell whoever is listening (WPF) that "Altitude" changed.
+            // The name must match the property name exactly, or nothing updates.
+            OnPropertyChanged("Altitude");
+        }
+    }
+
+    // Raises the PropertyChanged event, if anyone is subscribed to it.
+    private void OnPropertyChanged(string propertyName)
+    {
+        if (PropertyChanged != null)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
