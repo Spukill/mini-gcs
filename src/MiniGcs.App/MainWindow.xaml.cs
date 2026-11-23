@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MiniGcs.App.ViewModels;
 
 namespace MiniGcs.App;
 
@@ -12,5 +13,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        // DataContext = "the object this window's bindings read from".
+        DataContext = new MainViewModel();
     }
 }
