@@ -8,6 +8,17 @@ position, altitude, speed, battery and flight state.
 > Learning project: built step by step to learn the stack used in professional GCS software
 > (C#/.NET, WPF/MVVM, async and multi-threading, real-time telemetry, logging, CI/CD).
 
+## Screenshots
+
+**Phase 2: ArduPilot SITL copter flying over FEUP (Porto)**, controlled from MAVProxy
+(console with flight state on the left, map on the right):
+
+![SITL flight](screenshots/phase-2/sitl-flight.png)
+
+**Phase 1: telemetry screen (WPF + MVVM) fed by a fake telemetry generator:**
+
+![Fake telemetry](screenshots/phase-1/fake-telemetry.png)
+
 ## Tech stack
 
 | Area | Choice |
