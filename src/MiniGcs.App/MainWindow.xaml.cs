@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Net;
+using System.Net.Sockets;
+using System.Windows;
 using MiniGcs.App.Services;
 using MiniGcs.App.ViewModels;
 
@@ -24,5 +26,40 @@ public partial class MainWindow : Window
         DataContext = viewModel;
 
         telemetrySource.Start();
+    }
+
+    // TEMPORARY (phase 3, step 1): a BAD example on purpose.
+    // This runs on the UI thread (every click handler does). For 10 seconds it sits in a
+    // loop calling Receive(), which blocks until a packet arrives. While this loop runs,
+    // the UI thread can't do anything else: no repainting, no clicks, no timer ticks,
+    // so the window freezes and the fake telemetry stops changing.
+    private void OnBlockingListenClick(object sender, RoutedEventArgs e)
+    {
+        UdpClient udpClient = new UdpClient(14550);
+
+        // If nothing arrives in 2 s (SITL not running), Receive() throws instead of
+        // blocking forever.
+        udpClient.Client.ReceiveTimeout = 2000;
+
+        IPEndPoint senderEndPoint = new IPEndPoint(IPAddress.Any, 0);
+        int packetCount = 0;
+        DateTime endTime = DateTime.Now.AddSeconds(10);
+
+        try
+        {
+            while (DateTime.Now < endTime)
+            {
+                udpClient.Receive(ref senderEndPoint);
+                packetCount = packetCount + 1;
+            }
+        }
+        catch (SocketException)
+        {
+            // Timeout: no packets arriving. Stop the loop.
+        }
+
+        udpClient.Close();
+
+        MessageBox.Show("Received " + packetCount + " UDP packets in 10 seconds.");
     }
 }

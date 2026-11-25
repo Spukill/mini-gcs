@@ -21,6 +21,12 @@
             <TextBlock Text="{Binding Altitude, StringFormat=Altitude: {0:F1} m}" FontSize="18" />
             <TextBlock Text="{Binding GroundSpeed, StringFormat=Ground speed: {0:F1} m/s}" FontSize="18" />
             <TextBlock Text="{Binding BatteryPercent, StringFormat=Battery: {0:F0} %}" FontSize="18" />
+
+            <!-- TEMPORARY (phase 3, step 1): shows what happens when the UI thread blocks -->
+            <Button Content="Listen to MAVLink for 10 s (blocking)"
+                    Margin="0,20,0,0"
+                    Padding="10,5"
+                    Click="OnBlockingListenClick" />
         </StackPanel>
     </Grid>
 </Window>
