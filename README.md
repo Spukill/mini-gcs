@@ -10,14 +10,14 @@ position, altitude, speed, battery and flight state.
 
 ## Screenshots
 
+**Phase 1: telemetry screen (WPF + MVVM) fed by a fake telemetry generator:**
+
+![Fake telemetry](screenshots/phase-1/fake-telemetry.png)
+
 **Phase 2: ArduPilot SITL copter flying over FEUP (Porto)**, controlled from MAVProxy
 (console with flight state on the left, map on the right):
 
 ![SITL flight](screenshots/phase-2/sitl-flight.png)
-
-**Phase 1: telemetry screen (WPF + MVVM) fed by a fake telemetry generator:**
-
-![Fake telemetry](screenshots/phase-1/fake-telemetry.png)
 
 ## Tech stack
 
