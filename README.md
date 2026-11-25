@@ -75,7 +75,7 @@ ArduPilot SITL ──TCP 5760──▶ MAVProxy ──UDP 14550──▶ mini-gc
    dotnet run --project src/MiniGcs.Sniffer
    ```
    ```
-   [14:32:01] HEARTBEAT de 1:1 | QUADROTOR | DISARMED | STABILIZE | pacotes recebidos: 47
+   [14:32:01] HEARTBEAT from 1:1 | QUADROTOR | DISARMED | STABILIZE | packets received: 47
    ```
 4. In the MAVProxy prompt, wait for `pre-arm good`, then `mode guided`, `arm throttle`, `takeoff 10`
    and watch the sniffer switch to `ARMED | GUIDED`.

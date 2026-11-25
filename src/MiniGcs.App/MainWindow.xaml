@@ -12,15 +12,15 @@
         Title="mini-gcs" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Telemetria" FontSize="24" FontWeight="Bold" Margin="0,0,0,15" />
+            <TextBlock Text="Telemetry" FontSize="24" FontWeight="Bold" Margin="0,0,0,15" />
 
-            <TextBlock Text="{Binding ArmedText, StringFormat=Estado: {0}}" FontSize="18" />
-            <TextBlock Text="{Binding FlightMode, StringFormat=Modo: {0}}" FontSize="18" />
+            <TextBlock Text="{Binding ArmedText, StringFormat=Status: {0}}" FontSize="18" />
+            <TextBlock Text="{Binding FlightMode, StringFormat=Mode: {0}}" FontSize="18" />
             <TextBlock Text="{Binding Latitude, StringFormat=Latitude: {0:F6}°}" FontSize="18" />
             <TextBlock Text="{Binding Longitude, StringFormat=Longitude: {0:F6}°}" FontSize="18" />
             <TextBlock Text="{Binding Altitude, StringFormat=Altitude: {0:F1} m}" FontSize="18" />
-            <TextBlock Text="{Binding GroundSpeed, StringFormat=Velocidade: {0:F1} m/s}" FontSize="18" />
-            <TextBlock Text="{Binding BatteryPercent, StringFormat=Bateria: {0:F0} %}" FontSize="18" />
+            <TextBlock Text="{Binding GroundSpeed, StringFormat=Ground speed: {0:F1} m/s}" FontSize="18" />
+            <TextBlock Text="{Binding BatteryPercent, StringFormat=Battery: {0:F0} %}" FontSize="18" />
         </StackPanel>
     </Grid>
 </Window>

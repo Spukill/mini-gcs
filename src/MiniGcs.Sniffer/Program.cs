@@ -23,7 +23,7 @@ class Program
 
         int packetCount = 0;
 
-        Console.WriteLine("A ouvir MAVLink na porta UDP " + MavlinkUdpPort + "... (Ctrl+C para sair)");
+        Console.WriteLine("Listening for MAVLink on UDP port " + MavlinkUdpPort + "... (Ctrl+C to quit)");
 
         while (true)
         {
@@ -97,10 +97,10 @@ class Program
 
         string time = DateTime.Now.ToString("HH:mm:ss");
 
-        Console.WriteLine("[" + time + "] HEARTBEAT de " + message.sysid + ":" + message.compid
+        Console.WriteLine("[" + time + "] HEARTBEAT from " + message.sysid + ":" + message.compid
             + " | " + vehicleType
             + " | " + armedText
             + " | " + flightMode
-            + " | pacotes recebidos: " + packetCount);
+            + " | packets received: " + packetCount);
     }
 }
