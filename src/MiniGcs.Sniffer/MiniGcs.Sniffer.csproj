@@ -1,0 +1,16 @@
+﻿<!--
+  A small console tool, separate from the WPF app, to receive MAVLink packets over UDP
+  and print them in the terminal (a "sniffer", like a tiny Wireshark for MAVLink).
+  Exe = console program (the WPF app is WinExe). net10.0 without "-windows" because
+  it needs no Windows-only APIs, so it could even run on Linux.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
