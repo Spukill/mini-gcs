@@ -10,6 +10,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/MiniGcs.App/MiniGcs.App.csproj" />
+    <Project Path="src/MiniGcs.Mavlink/MiniGcs.Mavlink.csproj" />
     <Project Path="src/MiniGcs.Sniffer/MiniGcs.Sniffer.csproj" />
   </Folder>
 </Solution>
